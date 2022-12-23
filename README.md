@@ -15,3 +15,7 @@ Download the following libraries:
 Add the following board manager in the settings of your Arduino IDE: http://arduino.esp8266.com/stable/package_esp8266com_index.json
 
 Then install the ESP8266 board manager for the wemos D1 mini.
+
+### Copy secrets.template.h
+
+Copy the file secrets.template.h to secret.h and fill in the missing values.
