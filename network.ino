@@ -5,7 +5,7 @@ const char* ssid     = STASSID;
 const char* password = STAPSK;
 
 const char* ipify_host = "https://api.ipify.org";
-const char* infomaniak_host = "https://infomaniak.com/nic/update";
+const String infomaniak_host = "https://infomaniak.com/nic/update";
 const uint16_t https_port = 443;
 
 String fetchCurrentIpAddress() {
@@ -35,18 +35,20 @@ String fetchCurrentIpAddress() {
 }
 
 void updateInfomaniakHostname(String ipAddress) {
+  String url_str = infomaniak_host + "?hostname=" + String(INFOMANIAK_HOSTNAME) + "&myip=" + ipAddress;
+  const char * url = url_str.c_str();
   WiFiClientSecure client;
   client.setInsecure();
-  client.connect(infomaniak_host, https_port);
+  client.connect(url, https_port);
   HTTPClient http;
   
-  http.begin(client, infomaniak_host);
+  http.begin(client, url);
   http.setAuthorization(INFOMANIAK_USERNAME, INFOMANIAK_PASSWORD);
 
   int httpResponseCode = http.GET();
   if(httpResponseCode>0) {
     Serial.print("Host queried ");
-    Serial.println(infomaniak_host);
+    Serial.println(url);
     Serial.print("HTTP response code ");
     Serial.println(httpResponseCode);
   } else {
@@ -80,4 +82,10 @@ void connectToWifi() {
 
 bool isWifiConnected() {
   return WiFi.status() == WL_CONNECTED;
+}
+
+String getCurrentAssignedIpAddress(String hostname) {
+  IPAddress address;
+  WiFi.hostByName(hostname.c_str(), address);
+  return address.toString();
 }

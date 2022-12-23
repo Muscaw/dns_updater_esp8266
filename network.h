@@ -4,4 +4,5 @@ String fetchCurrentIpAddress();
 void updateInfomaniakHostname(String ipAddress);
 void connectToWifi();
 bool isWifiConnected();
+String getCurrentAssignedIpAddress(String hostname);
 #endif

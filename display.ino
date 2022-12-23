@@ -15,11 +15,37 @@ void setupScreen() {
 }
 
 void displayPublicIpAddress(String publicIpAddress) {
+  display.fillRect(0, 8, OLED_WIDTH, 8, BLACK);
+
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 8);
+  display.print("IP: ");
+  display.println(publicIpAddress);
+
+  display.display();
+}
+
+void displayWifiStatus(bool connected) {
+  display.fillRect(0, 0, OLED_WIDTH, 8, BLACK);
+
   display.setTextSize(1);
   display.setTextColor(WHITE);
   display.setCursor(0, 0);
-  display.print("IP: ");
-  display.println(publicIpAddress);
+  display.print("WiFi: ");
+  display.println(connected ? "Ok" : "Connecting");
+
+  display.display();
+}
+
+void displayCurrentInfomaniakAddress(String currentIpAddress) {
+  display.fillRect(0, 16, OLED_WIDTH, 16, BLACK);
+
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 16);
+  display.println("InfoManiak IP: ");
+  display.println(currentIpAddress);
 
   display.display();
 }
